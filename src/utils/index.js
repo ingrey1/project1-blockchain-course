@@ -1,13 +1,13 @@
 const prepareBlock = (blockData) => {
   const {
-    blockHash: block_hash,
+    block_hash: blockHash,
     height,
     time,
     body,
-    previousBlockHash: previous_block_hash,
+    previous_block_hash: previousBlockHash,
   } = blockData;
 
   return { blockHash, height, time, body, previousBlockHash };
 };
 
-module.exports.utils = {prepareBlock};
+module.exports = { prepareBlock };

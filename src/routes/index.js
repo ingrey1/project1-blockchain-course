@@ -3,7 +3,9 @@ const router = express.Router();
 
 const { executeQuery, readStars, createBlock, readBlocks, createStar } = require('../database/query.js');
 
-const { utils } = "../utils"
+const {prepareBlock}  = require("../utils")
+
+
 
 
 // const fetchedStars = await executeQuery(readStars)
@@ -116,10 +118,12 @@ router.get('/stars', async (req, res, next) => {
 
     /* GET blocks listing. */
 router.get('/blocks', async (req, res, next) => {
-    const fetchedBlockResponse = await executeQuery(readBlocks)
+    //const fetchedBlockResponse = await executeQuery(readBlocks)
+    const fetchedBlockResponse = {rows: [{block_hash: "BLOCK_HASH", height: 0, time: 235435365, body: "BODY_ENCODED", previous_block_hash: "PREVIOUS_HASH"}]}
     const blocks = []
     fetchedBlockResponse.rows.forEach((block) => {
-       blocks.push(utils.prepareBlock(block))
+       console.info("block: ", block)
+       blocks.push(prepareBlock(block))
     })
     
     res.json({ status: 200, data: blocks })
