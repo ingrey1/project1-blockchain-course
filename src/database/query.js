@@ -1,8 +1,58 @@
+const { Client } = require("pg");
+
 // Queries to fetch data from Postgres Database
 
+const READ_STARS_QUERY = `SELECT * FROM Stars;`;
+const READ_BLOCKS_QUERY = `SELECT * FROM BLOCKS;`;
+const CREATE_BLOCK_QUERY = `INSERT INTO Block COLUMNS (block_hash, height, time, body, previous_block_hash)
+VALUES ($1, $2, $3, $4, $5);`
 
+const executeQuery = async (queryFunction, queryArgs = null) => {
+  let client;
+  let result;
+  try {
+    client = new Client({
+      connectionString: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    });
 
+    client.connect();
 
-module.exports.database.query = {
+    result = await queryFunction(client, queryArgs);
+  } catch (error) {
+    console.info("executeQuery failed");
+    result = error;
+  }
+  client.end();
+  return result;
+};
+
+const readStars = async (client, queryArgs = null) => {
+  const queryResult = await client.query(READ_STARS_QUERY);
+  return queryResult
+};
+
+const readBlocks = async (client, queryArgs = null) => {
+    const queryResult = await client.query(READ_BLOCKS_QUERY);
+    return queryResult
+};
+
+const createBlock = async (client, values) => {
+  const { blockHash: block_hash, height, time, body, previousBlockHash: previous_block_hash } = req.body
+  const queryResult = await client.query(CREATE_BLOCK_QUERY, [block_hash, height, time, body, previous_block_hash]);
+  return queryResult
+}
+
+const createStar = async (client, starData) => {
 
 }
+
+module.exports = {
+    executeQuery,
+    readStars,
+    readBlocks,
+    createStar,
+    createBlock
+};
