@@ -4,13 +4,15 @@ const { Client } = require("pg");
 
 const READ_STARS_QUERY = `SELECT * FROM Stars;`;
 const READ_BLOCKS_QUERY = `SELECT * FROM BLOCKS;`;
+const CREATE_BLOCK_QUERY = `INSERT INTO Block COLUMNS (block_hash, height, time, body, previous_block_hash)
+VALUES ($1, $2, $3, $4, $5);`
 
 const executeQuery = async (queryFunction, queryArgs = null) => {
   let client;
   let result;
   try {
     client = new Client({
-      connectionString: "postgres://mjqquacxxeqqrh:8d292df6419db1fc8f622207c114279cd3dc5cff8b8414897efc9fce9f09143e@ec2-44-206-197-71.compute-1.amazonaws.com:5432/d4n1vs2p9glj0s",// process.env.DATABASE_URL,
+      connectionString: process.env.DATABASE_URL,
       ssl: {
         rejectUnauthorized: false,
       },
@@ -37,13 +39,19 @@ const readBlocks = async (client, queryArgs = null) => {
     return queryResult
 };
 
-const test = async () => {
-  const result = await executeQuery(readStars)
-  console.info(result)
+const createBlock = async (client, values) => {
+  const queryResult = await client.query(CREATE_BLOCK_QUERY, values);
+  return queryResult
 }
 
-module.exports.query = {
+const createStar = async (client, starData) => {
+
+}
+
+module.exports = {
     executeQuery,
     readStars,
-    readBlocks
+    readBlocks,
+    createStar,
+    createBlock
 };
