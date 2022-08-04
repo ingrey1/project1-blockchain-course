@@ -1,21 +1,22 @@
 {
-  "name": "project_1",
+  "name": "stars-api",
   "version": "1.0.0",
-  "description": "This project creates a Blockchain application to store data into the blocks",
-  "main": "index.js",
+  "description": "Stars REST API that uses Blockchain data structures",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www"
   },
-  "author": "Udacity - jose.morales@udacity.com",
+  "author": "ingrey1",
   "license": "ISC",
   "dependencies": {
     "bitcoinjs-lib": "^4.0.3",
     "bitcoinjs-message": "^2.0.0",
     "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.6",
     "crypto-js": "^3.1.9-1",
     "express": "^4.16.4",
     "hex2ascii": "0.0.3",
-    "morgan": "^1.9.1",
     "pg": "^8.7.3"
   }
 }

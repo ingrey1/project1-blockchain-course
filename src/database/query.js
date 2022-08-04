@@ -10,7 +10,7 @@ const executeQuery = async (queryFunction, queryArgs = null) => {
   let result;
   try {
     client = new Client({
-      connectionString: process.env.DATABASE_URL,
+      connectionString: "postgres://mjqquacxxeqqrh:8d292df6419db1fc8f622207c114279cd3dc5cff8b8414897efc9fce9f09143e@ec2-44-206-197-71.compute-1.amazonaws.com:5432/d4n1vs2p9glj0s",// process.env.DATABASE_URL,
       ssl: {
         rejectUnauthorized: false,
       },
@@ -41,10 +41,6 @@ const test = async () => {
   const result = await executeQuery(readStars)
   console.info(result)
 }
-
-test()
-
-
 
 module.exports.query = {
     executeQuery,
