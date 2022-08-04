@@ -40,7 +40,8 @@ const readBlocks = async (client, queryArgs = null) => {
 };
 
 const createBlock = async (client, values) => {
-  const queryResult = await client.query(CREATE_BLOCK_QUERY, values);
+  const { blockHash: block_hash, height, time, body, previousBlockHash: previous_block_hash } = req.body
+  const queryResult = await client.query(CREATE_BLOCK_QUERY, [block_hash, height, time, body, previous_block_hash]);
   return queryResult
 }
 

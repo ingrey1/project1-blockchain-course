@@ -119,7 +119,9 @@ router.get('/blocks', async (req, res, next) => {
     
     /* POST blocks listing. */
 router.post('/blocks', async (req, res, next) => {
-        const queryArgs = [req.blah]
+        
+        const {} = req.body
+
         const createBlockResponse = await executeQuery(createBlock, queryArgs)
         
         res.json(createBlockResponse) 
