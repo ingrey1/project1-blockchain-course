@@ -30,7 +30,9 @@ try {
 
      const createStarTableText = `CREATE TABLE Star(
         id serial PRIMARY KEY,
-        star_data JSON NOT NULL
+        star_data JSON NOT NULL,
+        block_id INTEGER REFERENCES Block(id),
+        time INTEGER NOT NULL
      );`
 
     await client.query(createBlockTableText)
