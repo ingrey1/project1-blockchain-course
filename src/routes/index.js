@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { executeQuery, readStars, createBlock, createStar } = require('../database/query.js');
+const { executeQuery, readStars, createBlock, readBlocks, createStar } = require('../database/query.js');
 
 
 // const fetchedStars = await executeQuery(readStars)
@@ -114,7 +114,9 @@ router.get('/stars', async (req, res, next) => {
 
     /* GET blocks listing. */
 router.get('/blocks', async (req, res, next) => {
-       res.json({message: "get blocks" })
+    const fetchedBlocks = await executeQuery(readBlocks)
+    console.info("fetchedBlocks", fetchedBlocks)
+    res.json({ status: 200, data: fetchedStars})
 });
     
     /* POST blocks listing. */

@@ -5,7 +5,7 @@ const { Client } = require("pg");
 const READ_STARS_QUERY = `SELECT * FROM Stars;`;
 const READ_BLOCKS_QUERY = `SELECT * FROM BLOCKS;`;
 const CREATE_BLOCK_QUERY = `INSERT INTO Block(block_hash, height, time, body, previous_block_hash)
-VALUES($1, $2, $3, $4, $5) returning *;`
+VALUES($1, $2, $3, $4, $5) returning *;`;
 
 const executeQuery = async (queryFunction, queryArgs = null) => {
   let client;
@@ -31,29 +31,39 @@ const executeQuery = async (queryFunction, queryArgs = null) => {
 
 const readStars = async (client, queryArgs = null) => {
   const queryResult = await client.query(READ_STARS_QUERY);
-  return queryResult
+  return queryResult;
 };
 
 const readBlocks = async (client, queryArgs = null) => {
-    const queryResult = await client.query(READ_BLOCKS_QUERY);
-    return queryResult
+  const queryResult = await client.query(READ_BLOCKS_QUERY);
+  return queryResult;
 };
 
 const createBlock = async (client, values) => {
-  console.info("Values: ", values)
-  const { blockHash: block_hash, height, time, body, previousBlockHash: previous_block_hash } = values
-  const queryResult = await client.query(CREATE_BLOCK_QUERY, [block_hash, height, time, body, previous_block_hash]);
-  return queryResult
-}
+  console.info("Values: ", values);
+  const {
+    blockHash: block_hash,
+    height,
+    time,
+    body,
+    previousBlockHash: previous_block_hash,
+  } = values;
+  const queryResult = await client.query(CREATE_BLOCK_QUERY, [
+    block_hash,
+    height,
+    time,
+    body,
+    previous_block_hash,
+  ]);
+  return queryResult;
+};
 
-const createStar = async (client, starData) => {
-
-}
+const createStar = async (client, starData) => {};
 
 module.exports = {
-    executeQuery,
-    readStars,
-    readBlocks,
-    createStar,
-    createBlock
+  executeQuery,
+  readStars,
+  readBlocks,
+  createStar,
+  createBlock,
 };
