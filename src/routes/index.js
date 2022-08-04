@@ -118,8 +118,7 @@ router.get('/stars', async (req, res, next) => {
 
     /* GET blocks listing. */
 router.get('/blocks', async (req, res, next) => {
-    //const fetchedBlockResponse = await executeQuery(readBlocks)
-    const fetchedBlockResponse = {rows: [{block_hash: "BLOCK_HASH", height: 0, time: 235435365, body: "BODY_ENCODED", previous_block_hash: "PREVIOUS_HASH"}]}
+    const fetchedBlockResponse = await executeQuery(readBlocks)
     const blocks = []
     fetchedBlockResponse.rows.forEach((block) => {
        console.info("block: ", block)
