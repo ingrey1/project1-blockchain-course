@@ -114,7 +114,7 @@ router.get('/stars', async (req, res, next) => {
 
     /* GET blocks listing. */
 router.get('/blocks', async (req, res, next) => {
-       
+       res.json({message: "get blocks" })
 });
     
     /* POST blocks listing. */
