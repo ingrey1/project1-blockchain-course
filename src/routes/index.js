@@ -114,15 +114,13 @@ router.get('/stars', async (req, res, next) => {
 
     /* GET blocks listing. */
 router.get('/blocks', async (req, res, next) => {
-       
+       res.json({message: "get blocks" })
 });
     
     /* POST blocks listing. */
 router.post('/blocks', async (req, res, next) => {
         
-        const {} = req.body
-
-        const createBlockResponse = await executeQuery(createBlock, queryArgs)
+        const createBlockResponse = await executeQuery(createBlock, req.body)
         
         res.json(createBlockResponse) 
            
