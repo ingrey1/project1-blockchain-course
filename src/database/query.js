@@ -3,7 +3,7 @@ const { Client } = require("pg");
 // Queries to fetch data from Postgres Database
 
 const READ_STARS_QUERY = `SELECT * FROM Star;`;
-const READ_BLOCKS_QUERY = `SELECT * FROM BLOCK;`;
+const READ_BLOCKS_QUERY = `SELECT * FROM Block;`;
 const CREATE_BLOCK_QUERY = `INSERT INTO Block(block_hash, height, time, body, previous_block_hash)
 VALUES($1, $2, $3, $4, $5) returning *;`;
 

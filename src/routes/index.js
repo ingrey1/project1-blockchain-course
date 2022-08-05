@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { executeQuery, readStars, createBlock, readBlocks, createStar } = require('../database/query.js');
 
-const {prepareBlock}  = require("../utils")
+const {prepareBlock, isValidBlockData}  = require("../utils")
 
 
 
@@ -130,6 +130,8 @@ router.get('/blocks', async (req, res, next) => {
     
     /* POST blocks listing. */
 router.post('/blocks', async (req, res, next) => {
+
+        if (!isValidBlockData(req.body)) res.json({error: "Missing at least one required field."})
         
         const createBlockResponse = await executeQuery(createBlock, req.body)
         
