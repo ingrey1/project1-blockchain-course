@@ -120,8 +120,8 @@ router.get('/stars', async (req, res, next) => {
 router.get('/blocks', async (req, res, next) => {
     const fetchedBlockResponse = await executeQuery(readBlocks)
     const blocks = []
+    console.info("fetchedBlockResponse", fetchedBlockResponse)
     fetchedBlockResponse.rows.forEach((block) => {
-       console.info("block: ", block)
        blocks.push(prepareBlock(block))
     })
     
