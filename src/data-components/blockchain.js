@@ -34,7 +34,7 @@ class Blockchain {
    */
   async initializeChain() {
     if (this.height === -1) {
-      let block = new BlockClass.Block({ data: "Genesis Block" });
+      const block = new BlockClass.Block({ data: "Genesis Block" });
       await this._addBlock(block);
     }
   }
@@ -62,19 +62,31 @@ class Blockchain {
    */
   _addBlock(block) {
     let self = this;
-    return new Promise(async (resolve, reject) => {});
+    return new Promise(async (resolve, reject) => {
+      const currentBlock = self.getBlockByHeight(self.height)
+      block.previousBlockHash = currentBlock.hash
+      block.time = Date.now()
+      block.hash = SHA256(JSON.stringify(block)).toString() 
+      self.chain.push(block)
+      self.height = self.height + 1
+      resolve(block); 
+    });
   }
 
   /**
    * The requestMessageOwnershipVerification(address) method
-   * will allow you  to request a message that you will use to
+   * will allow you to request a message that you will use to
    * sign it with your Bitcoin Wallet (Electrum or Bitcoin Core)
-   * This is the first step before submit your Block.
-   * The method return a Promise that will resolve with the message to be signed
+   * This is the first step before submitting your Block.
+   * The method returns a Promise that will resolve with the message to be signed
    * @param {*} address
    */
   requestMessageOwnershipVerification(address) {
-    return new Promise((resolve) => {});
+    return new Promise((resolve) => {
+
+         
+
+    });
   }
 
   /**
